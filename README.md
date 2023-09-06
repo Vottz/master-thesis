@@ -15,6 +15,9 @@ For the transformation from a BPMN model in the form of an XML file to a JSON fi
 
 # Experiments
 1. Optimization Model
+2. Carbon-unaware (static) baselines
+3. ToDo
+4. Simple carbon-aware approach
 
 
 The results of the experiments can be found in the form of CSV files in the results folder.
