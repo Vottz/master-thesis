@@ -13,5 +13,12 @@
 For the transformation from a BPMN model in the form of an XML file to a JSON file. 
 
 
-# Experimentents
+# Experiments
 1. Optimization Model
+
+
+The results of the experiments can be found in the form of CSV files in the results folder.
+
+# Data visualization 
+
+
