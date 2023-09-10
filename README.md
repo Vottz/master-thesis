@@ -4,6 +4,9 @@
 
 
 # Data 
+- Application Architecture Data
+  - form of a JSON file, which is derived from a BPMN Model
+  - enriched with parameters for the carbon-aware approach
 - Carbon Intensity Data from [Electricity Maps](https://www.electricitymaps.com/data-portal) for 2020 and 2021
   - Electricity Maps - Data Portal. (2023, July 1). https://www.electricitymaps.com/data-portal
   - Licensed under [ODbl](https://opendatacommons.org/licenses/odbl/)
@@ -15,8 +18,8 @@ For the transformation from a BPMN model in the form of an XML file to a JSON fi
 
 
 # Experiments
-1. Optimization Model
-2. Carbon-unaware (static) baselines
+1. Selective Optimization
+2. Carbon-Unaware (static) Baselines
 3. ToDo
 4. Simple carbon-aware approach
 5. Randomized Energy Budget (Validation Approach)
