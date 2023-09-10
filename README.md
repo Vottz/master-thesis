@@ -1,6 +1,6 @@
 # Reducing the Carbon Footprint of Microservice-Based Cloud Applications by Periodically Scaling their Energy Demand
 
-![Overview of the Approach](approach-overview.jpg)
+![Overview of the Approach](./approach-overview.jpg)
 
 
 # Data 
