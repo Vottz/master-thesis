@@ -1,5 +1,6 @@
 # Reducing the Carbon Footprint of Microservice-Based Cloud Applications by Periodically Scaling their Energy Demand
 
+![Overview of the Approach](approach-overview.jpg)
 
 
 # Data 
@@ -18,6 +19,10 @@ For the transformation from a BPMN model in the form of an XML file to a JSON fi
 2. Carbon-unaware (static) baselines
 3. ToDo
 4. Simple carbon-aware approach
+5. Randomized Energy Budget (Validation Approach)
+6. Uniform Recycle Budget 
+7. Weighted Recycle Budget
+8. Hourly Recycle Budget
 
 
 The results of the experiments can be found in the form of CSV files in the results folder.
