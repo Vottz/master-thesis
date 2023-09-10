@@ -14,11 +14,12 @@
 
 
 # XML Parser
-For the transformation from a BPMN model in the form of an XML file to a JSON file. 
+A python file that transforms a BPMN model in the form of an XML file to a JSON file.  
+Which can then be enriched with the parameters for the carbon-aware approach.
 
 
 # Experiments
-1. Selective Optimization
+1. Selective Optimisation
 2. Carbon-Unaware (static) Baselines
 3. ToDo
 4. Simple carbon-aware approach
