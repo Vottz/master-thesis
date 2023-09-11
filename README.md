@@ -21,7 +21,7 @@ Which can then be enriched with the parameters for the carbon-aware approach.
 # Experiments
 1. Selective Optimisation
 2. Carbon-Unaware (static) Baselines
-3. ToDo
+3. Mathematical Optimum Solution
 4. Simple carbon-aware approach
 5. Randomized Energy Budget (Validation Approach)
 6. Uniform Recycle Budget 
