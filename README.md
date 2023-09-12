@@ -36,12 +36,14 @@ It consists of the following data sets:
 - Carbon Intensity Data from [Electricity Maps](https://www.electricitymaps.com/data-portal) for Germany
   - [2020](/data/DE_2020.csv)
   - [2021](/data/DE_2021.csv)
-- User-Request Data from [Wikipedia](https://dumps.wikimedia.org/other/pagecounts-raw/)
+- User-Request Data from [Wikimedia ](https://dumps.wikimedia.org/other/pagecounts-raw/)
   - [2014](data/projectcount_wikiDE_2014.csv)
   - [2015](data/projectcount_wikiDE_2015.csv)
 
-The carbon intensity data is licensed under [ODbl](https://opendatacommons.org/licenses/odbl/).
+The carbon intensity data is licensed under [ODbl](https://opendatacommons.org/licenses/odbl/).  
+The wikimedia pageview dataset is licensed under [Creative Commons Zero (CC0) public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/) as it is part of the [Wikimedia: Analytics Datasets](https://dumps.wikimedia.org/other/analytics/), whose license is stated in [https://dumps.wikimedia.org/legal.html](https://dumps.wikimedia.org/legal.html).
 
+https://dumps.wikimedia.org/legal.html
 ## Application Data
 The data for the application architecture of the flight booking use case is stored in a [JSON file](flightBooking.json).  
 Additionally there is an [XML-Parser](xml_parser/bpmnToJSON.py) that can parse BPMN-models in the form of XML files to JSON files.  
