@@ -16,7 +16,6 @@ import math
 from statistics import mean 
 
 import subprocess
-import pandas as pd
 
 import sys 
 import os
@@ -41,20 +40,14 @@ def optimizationHourly(energyBudget, user_demand, indices, userMax, energyDemand
     # Create optimization model
     m = gb.Model('ca_microservice_global')
 
-    # Creates the Gurobi Variable from the list of lists 
+    # Variables
     b = m.addVars(shape, vtype=GRB.BINARY, name="b")
-
-    # User-Troughput Variable (e.g., QoS, QoE, Revenue, etc.)
-    # 1.0 indicates 100% users getting to next component in the workflow
-    u = m.addVars(len(indices)+1, lb=0.0, vtype=GRB.CONTINUOUS, name="u") # ub=20.0 unnecessary?
+    u = m.addVars(len(indices)+1, lb=0.0, vtype=GRB.CONTINUOUS, name="u") # ub=20.0 ?
 
     # Scaling Factor. Indicates how many instances are needed to serve the user demand. For each microservice
     sf = m.addVars(shape, lb=0, vtype=GRB.INTEGER, name="sf")
     m.update()
-    # Binary constraint for the configuration picking. Ensures that only one execution format is picked for each microservice
     # ToDo: Ensure that mandatory/core microservices always have one execution format running
-
-    #for ms in range(len(indices)):
         
     # Scaling Factor constraint
 
@@ -85,19 +78,15 @@ def optimizationHourly(energyBudget, user_demand, indices, userMax, energyDemand
     m.optimize()
 
 
-    # Print solution
+    # Extract Output
     qValue = [var.X for var in m.getVars() if "u" in var.VarName][5]
     userThrougput = [var.X for var in m.getVars() if "u" in var.VarName][5] * user_demand
-
-
     ed = 0
     execFormats = [var.X for var in m.getVars() if "b" in var.VarName]
     scalingFactor = [var.X for var in m.getVars() if "sf" in var.VarName]
     energyDemand_flat = [item for sublist in energyDemand for item in sublist]
-
     for i in range(len(execFormats)):
         ed += execFormats[i]*scalingFactor[i]*energyDemand_flat[i]
-
     return(qValue,userThrougput,ed)
 
 
