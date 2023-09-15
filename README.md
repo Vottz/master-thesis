@@ -4,8 +4,24 @@
 
 
 # Library of functions
-The [lib.py](lib.py) file contains all the functions that are needed for the experiments.
+The [lib.py](lib.py) file contains all the functions used in multiple experiments.
+Some of the experiment files itself have single functions that are only used in that specific experiment  
 
+In [lib.py](lib.py) the following functions can be found:
+- The Selectibe Optimiziation Algorithm 
+- num_days_between
+- weekdayfrequency(year)
+- getConstantsFromBPMN: Extracts the parameters from the JSON file that is used to describe the application architecture
+
+- calcEnergyDemandFromAVG
+- calcQFromAVG
+- calcCarbonEmissionFromEnergyDemand
+- calcCarbonBudgetFrom_AVG_CE
+- getS_hourlyAVG
+- calcEnergyBudgetHourInWeekAVG
+- calcCarbonIntensityHourInWeekAVG
+- calcCarbonBudgetHourInWeekAVG
+- calcED_LP
 
 
 # Experiments
@@ -43,9 +59,55 @@ It consists of the following data sets:
 The carbon intensity data is licensed under [ODbl](https://opendatacommons.org/licenses/odbl/).  
 The wikimedia pageview dataset is licensed under [Creative Commons Zero (CC0) public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/) as it is part of the [Wikimedia: Analytics Datasets](https://dumps.wikimedia.org/other/analytics/), whose license is stated in [https://dumps.wikimedia.org/legal.html](https://dumps.wikimedia.org/legal.html).
 
-https://dumps.wikimedia.org/legal.html
 ## Application Data
 The data for the application architecture of the flight booking use case is stored in a [JSON file](flightBooking.json).  
 Additionally there is an [XML-Parser](xml_parser/bpmnToJSON.py) that can parse BPMN-models in the form of XML files to JSON files.  
 The BPMN XML file could for example have been derived from a BMPN modeller, such as [bpmn.io](https://bpmn.io/).  
 The derived JSON file can then be enriched with the needed parameters for selectibe optimisation algorithm.
+
+
+
+#  How to run the experiments
+
+## Requirements
+In order to run the experiments, the following requirements need to be met:  
+- Python 3.9.12
+  - [Requirements](requirements.txt)
+- [Gurobi Optimizer](https://www.gurobi.com/) (for the mathematical optimum solution): a license is needed
+  - An academic license can be obtained [here](https://www.gurobi.com/academia/academic-program-and-licenses/).
+
+## Installation of the python environment
+We advise to use a virtual environment, such as [Anaconda](https://www.anaconda.com/).  
+If you do not have Anaconda installed, you can download it [here](https://www.anaconda.com/products/individual).
+With Anaconda and the following commands, it can be ensured that the same environment is used for the experiments:
+```bash
+conda create --name <env-name> python=3.9.12
+conda activate <env-name>
+conda install gurobi
+pip install -r requirements.txt
+```
+
+To leave your conda envrionment again you can use the following command:
+```bash
+conda deactivate
+```
+
+
+## Acitvating the Gurobi License
+The Gurobi license has to be activated before the experiments can be run.
+```bash
+grbgetkey <license-key>
+```
+
+# Running the experiments
+The experiments can be run by executing the following command:
+```python
+python3 <x-experiment.py>
+```
+DISCLAIMER: The experiments can take a long time to run, depending on the parameters that are used.
+or by executing the shell script [main.sh](results/main.sh) in the results folder:
+```bash
+cd results
+chmod +x main.sh
+./main.sh
+```
