@@ -7,21 +7,11 @@ Weighted redistribution.
 
 Returns: Energy demand for every hour 
 """
-
-import gurobi as gb
-from gurobipy import GRB
-
-import networkx as nx
-import numpy as np
-#import math
-
-import json
 from statistics import mean 
 import pandas as pd
 
 import sys
 import csv
-import itertools
 
 import sys 
 import os
@@ -53,7 +43,7 @@ ci_data = df['carbon_intensity_avg']
 df = pd.read_csv(r'../data/DE_2021.csv')
 ci_data_2021 = df['carbon_intensity_avg']
 
-df = pd.read_csv(r'../data/projectcount_wikiDE_2015.csv')
+df = pd.read_csv(r'../data/projectcount_wikiDE_2014.csv')
 clickData_hourly_2014 = df["de"]
 
 df = pd.read_csv(r'../data/DE_2021.csv')

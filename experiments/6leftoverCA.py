@@ -5,34 +5,17 @@ Selective Optimizer for a full year
 
 Returns: Energy demand for every hour 
 """
-
-import gurobi as gb
-from gurobipy import GRB
-
-import networkx as nx
-import numpy as np
-#import math
-
-import json
 from statistics import mean 
 import pandas as pd
 
 import sys
 import csv
-import itertools
 
 import sys 
 import os
 path = os.path.dirname(os.getcwd())
 sys.path.append(path)
 from lib import *
-
-# Command-Line Arguments
-#cliArg = sys.argv[1:]
-#energyBudget = float(cliArg[0])
-#userDemand = float(cliArg[1])
-
-
 
 def recalcCB(leftoverCB):
     carbonBudget = calcCarbonBudgetHourInWeekAVG(2020,clickData_hourly_2014,ci_data)

@@ -9,17 +9,11 @@ Returns: Energy demand for every hour
 import gurobi as gb
 from gurobipy import GRB
 
-import networkx as nx
-import numpy as np
-#import math
-
-import json
 from statistics import mean 
 import pandas as pd
 
 import sys
 import csv
-import itertools
 
 import sys 
 import os

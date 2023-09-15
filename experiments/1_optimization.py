@@ -1,25 +1,10 @@
 #!/usr/bin/env python
-"""
-Hourly Optimizer for a full year
 
-
-Returns: Energy demand for every hour 
-"""
-
-import gurobi as gb
-from gurobipy import GRB
-
-import networkx as nx
-import numpy as np
-#import math
-
-import json
 from statistics import mean 
 import pandas as pd
 
 import sys
 import csv
-import itertools
 
 import sys 
 import os
@@ -72,7 +57,7 @@ for t in range(len(ci_data_2021)):
     eb = carbonBudget[index]/ci_data_2021[t]
     qValue,userThrougput,ed = optimizationHourly(eb, clickData_hourly[t], indices, userMax, energyDemand, q)
     ce = ed * ci_data_2021[t]
-    row = [qValue,userThrougput,ed,eb, clickData_hourly[t], ce]
+    row = [qValue,userThrougput,ed,eb,clickData_hourly[t],ce]
     f = open('../results/optimization_result.csv', 'a')
     writer = csv.writer(f)
     writer.writerow(row)
