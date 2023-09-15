@@ -6,12 +6,13 @@
 
 import xml.dom.minidom
 import json
+import sys
 
 
 def importXML(fileName):
     return(xml.dom.minidom.parse(fileName))
 
-bpmn = importXML('../bpmn/flight-booking_idea1.bpmn')
+bpmn = importXML(sys.argv[1])
 
 
 ## Read from BPMN

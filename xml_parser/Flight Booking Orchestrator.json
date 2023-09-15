@@ -1,20 +1,8 @@
 {
     "name": "Flight Booking Orchestrator",
     "components": {
-        "Flight Search ": {
-            "Normal": {
-                "aws-ec2-type": "",
-                "energy-demand": 0.0,
-                "user-scaling": 0,
-                "q": 0.0
-            },
-            "Low Power": {
-                "aws-ec2-type": "",
-                "energy-demand": 0.0,
-                "user-scaling": 0,
-                "q": 0.0
-            },
-            "High Performance": {
+        "Flight Booking": {
+            "": {
                 "aws-ec2-type": "",
                 "energy-demand": 0.0,
                 "user-scaling": 0,
@@ -29,28 +17,16 @@
                 "q": 0.0
             }
         },
-        "Flight Booking ": {
-            "Normal": {
-                "aws-ec2-type": "",
-                "energy-demand": 0.0,
-                "user-scaling": 0,
-                "q": 0.0
-            },
-            "Low power": {
+        "Flight Search": {
+            "": {
                 "aws-ec2-type": "",
                 "energy-demand": 0.0,
                 "user-scaling": 0,
                 "q": 0.0
             }
         },
-        "Rental Car Booking ": {
-            "Normal": {
-                "aws-ec2-type": "",
-                "energy-demand": 0.0,
-                "user-scaling": 0,
-                "q": 0.0
-            },
-            "High Performance": {
+        "Rental Car Booking": {
+            "": {
                 "aws-ec2-type": "",
                 "energy-demand": 0.0,
                 "user-scaling": 0,
