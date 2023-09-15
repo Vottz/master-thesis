@@ -2,28 +2,6 @@
 
 ![Overview of the Approach](approach-overview.jpg)
 
-
-# Library of functions
-The [lib.py](lib.py) file contains all the functions used in multiple experiments.
-Some of the experiment files itself have single functions that are only used in that specific experiment  
-
-In [lib.py](lib.py) the following functions can be found:
-- The Selectibe Optimiziation Algorithm 
-- num_days_between
-- weekdayfrequency(year)
-- getConstantsFromBPMN: Extracts the parameters from the JSON file that is used to describe the application architecture
-
-- calcEnergyDemandFromAVG
-- calcQFromAVG
-- calcCarbonEmissionFromEnergyDemand
-- calcCarbonBudgetFrom_AVG_CE
-- getS_hourlyAVG
-- calcEnergyBudgetHourInWeekAVG
-- calcCarbonIntensityHourInWeekAVG
-- calcCarbonBudgetHourInWeekAVG
-- calcED_LP
-
-
 # Experiments
 There are in total 8 different experiments that were conducted:
 1. Selective Optimisation
@@ -111,3 +89,24 @@ cd results
 chmod +x main.sh
 ./main.sh
 ```
+
+
+# Library of functions
+The [lib.py](lib.py) file contains all the functions used in multiple experiments.
+Some of the experiment files itself have single functions that are only used in that specific experiment  
+
+In [lib.py](lib.py) the following functions can be found:
+- The Selectibe Optimiziation Algorithm 
+- num_days_between
+- weekdayfrequency(year)
+- getConstantsFromBPMN: Extracts the parameters from the JSON file that is used to describe the application architecture
+
+- calcEnergyDemandFromAVG
+- calcQFromAVG
+- calcCarbonEmissionFromEnergyDemand
+- calcCarbonBudgetFrom_AVG_CE
+- getS_hourlyAVG
+- calcEnergyBudgetHourInWeekAVG
+- calcCarbonIntensityHourInWeekAVG
+- calcCarbonBudgetHourInWeekAVG
+- calcED_LP
