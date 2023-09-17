@@ -327,49 +327,8 @@ def calcED_LP(userMax, energyDemand, q, clickData):
     qValue = math.prod([q[i][0] for i in range(len(q))])
     return(qValue,clickData,ed)
 
-# def calcEnergyBudgetHourInWeekAVG(year, clickData_hourly, ci_data):
-#     '''
-#     param: 
-#         year of calculation, int
-#         user request data for that year, [int] size is 8760 or 8784 in leap years
-#         CI data for that year ,[int] size is 8760 or 8784 in leap years
-#     return: Calculates the mean energy budget per hour in a week for a given year
-#     '''
-#     #df = pd.read_csv(r'/home/k/projects/CA_microservices/data/DE_2021.csv')
-#     #ci_data_2021_hourly = df['carbon_intensity_avg']
-#     #df = pd.read_csv(r'/home/k/projects/CA_microservices/data_scraping/projectcount_wikiDE-de.csv')
-#     #clickData_hourly = df["De"]
-    
-#     s_hourlyAVG = getS_hourlyAVG(clickData_hourly, year)
-#     weekday_frequency = weekdayfrequency(year)
-#     s = weekday_frequency.index(53)*24
-
-#     #energyBudget_annually_2021 = 18018969861.040535 * 0.92 # ToDo recalulate and add to lib.py
-#     #eb_perUser = energyBudget_annually_2021 / user_total_annually
-#     #eb_perHour = [s_hourlyAVG[i] * eb_perUser for i in range(len(s_hourlyAVG))]
-    
-#     user_total_annually = sum(clickData_hourly)
-#     carbonEmission = calcCarbonEmissionFromEnergyDemand(calcEnergyDemandFromAVG(clickData_hourly),ci_data)
-#     carbonEmission = sum(carbonEmission) # / 8784)* 8760 # Leap Year
-
-#     carbonBudget_anually = carbonEmission * 0.923
-#     cb_perUser = carbonBudget_anually / user_total_annually
-#     cb_perHour = [s_hourlyAVG[i] * cb_perUser for i in range(len(s_hourlyAVG))]
-
-#     # Because the cb_perHour is static, we can adjust it with the CI for 2021
-#     energyBudget = [0 for i in range(168)]
-#     for t in range(len(ci_data)):
-#         index = (t+s) % 168
-#         energyBudget[index] += cb_perHour[index] / ci_data[t]
-#     for i in range(168):
-#         energyBudget[i] = energyBudget[i] / weekday_frequency[i%7]
-#     return(energyBudget)
 
 ## 3. Carbon Intensity Data
-
-# ToDo AVG for hour in week 
-## Users
-## Budget integration
 
 def calcCarbonIntensityHourInWeekAVG():
     # ToDo check if all correct
