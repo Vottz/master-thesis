@@ -31,7 +31,7 @@ def randomEB(hourly_eb):
 
 
 row = ["q","user-throughput","ed","eb","U","ce"]
-f = open('../results/5_randomEB_optimization.csv', 'w')
+f = open('../results/4_randomEB_optimization.csv', 'w')
 writer = csv.writer(f)
 writer.writerow(row)
 f.close()
@@ -77,7 +77,7 @@ for t in range(len(clickData_hourly)):
         ed_sum += ed
     result = [qValue_sum,userThrougput_sum,ed_sum,eb_sum,clickData_hourly[t],ce]
     row = [x/10 for x in result]
-    f = open('../results/5_randomEB_optimization.csv', 'a')
+    f = open('../results/4_randomEB_optimization.csv', 'a')
     writer = csv.writer(f)
     writer.writerow(row)
     f.close()

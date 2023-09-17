@@ -5,10 +5,6 @@ Selective Optimizer for a full year
 
 Returns: Energy demand for every hour 
 """
-
-import gurobi as gb
-from gurobipy import GRB
-
 from statistics import mean 
 import pandas as pd
 
@@ -21,6 +17,12 @@ path = os.path.dirname(os.getcwd())
 sys.path.append(path)
 from lib import *
 
+def recalcCB(leftoverCB):
+    carbonBudget = calcCarbonBudgetHourInWeekAVG(2020,clickData_hourly_2014,ci_data)
+    extraBudget = leftoverCB / 168
+    for i in range(168):
+        carbonBudget[i] += extraBudget
+    return(carbonBudget)
 
 # Parameters Import
 data, vars_ms, userMax, energyDemand, q = getConstantsFromBPMN('../flightBooking.json')
@@ -49,7 +51,7 @@ weekday_frequency = weekdayfrequency(2021)
 s_2021 = weekday_frequency.index(53)*24
 
 row = ["q","user-throughput","ed","eb","U","ce"]
-f = open('../results/8_leftoverEB_optimization_result.csv', 'w')
+f = open('../results/5_leftover_optimization_result.csv', 'w')
 writer = csv.writer(f)
 writer.writerow(row)
 f.close()
@@ -58,14 +60,17 @@ carbonBudget = calcCarbonBudgetHourInWeekAVG(2020,clickData_hourly_2014,ci_data)
 leftOver = 0
 for t in range(0,len(clickData_hourly)):
     index = (t+s_2021)%168
-    eb = (carbonBudget[index]+leftOver)/ci_data_2021[t]
+    if index == 0 and t != 0:
+        carbonBudget = recalcCB(leftOver)
+        leftOver = 0
+    eb = carbonBudget[index]/ci_data_2021[t]
     qValue,userThrougput,ed = optimizationHourly(eb, clickData_hourly[t], indices, userMax, energyDemand, q)
     ce = ed * ci_data_2021_hourly[t]
-    leftOver = carbonBudget[index] - ce
-    if leftOver < 0:
-        leftOver = 0
     row = [qValue,userThrougput,ed,eb,clickData_hourly[t],ce]
-    f = open('../results/8_leftoverEB_optimization_result.csv', 'a')
+    f = open('../results/5_leftover_optimization_result.csv', 'a')
     writer = csv.writer(f)
     writer.writerow(row)
     f.close()
+    leftOver += carbonBudget[index] - ce
+    if leftOver < 0:
+        leftOver = 0

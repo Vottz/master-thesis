@@ -28,9 +28,9 @@ df = pd.read_csv(r'../data/projectcount_wikiDE_2014.csv')
 clickData_hourly_2014 = df["de"]
 carbonBudget = calcCarbonBudgetHourInWeekAVG(2020,clickData_hourly_2014,ci_data)
 
-year=2015
-weekday_frequency = weekdayfrequency(year)
-s = weekday_frequency.index(53)*24
+# year=2015
+# weekday_frequency = weekdayfrequency(year)
+# s = weekday_frequency.index(53)*24
 
 
 weekday_frequency = weekdayfrequency(2021)
@@ -46,7 +46,7 @@ clickData_hourly = df["De"].tolist()
 clickData_hourly = clickData_hourly[24:] + clickData_hourly[0:24]
 
 row = ["q","user-throughput","ed","eb","U","ce"]
-f = open('../results/optimization_result.csv', 'w')
+f = open('../results/1_optimization_result.csv', 'w')
 writer = csv.writer(f)
 writer.writerow(row)
 f.close()
@@ -58,7 +58,7 @@ for t in range(len(ci_data_2021)):
     qValue,userThrougput,ed = optimizationHourly(eb, clickData_hourly[t], indices, userMax, energyDemand, q)
     ce = ed * ci_data_2021[t]
     row = [qValue,userThrougput,ed,eb,clickData_hourly[t],ce]
-    f = open('../results/optimization_result.csv', 'a')
+    f = open('../results/1_optimization_result.csv', 'a')
     writer = csv.writer(f)
     writer.writerow(row)
     f.close()
