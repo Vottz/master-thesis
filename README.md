@@ -4,7 +4,7 @@
 
 # Experiments
 There are in total 8 different experiments that were conducted:
-1. Selective Optimisation
+1. Selective Optimization
 2. Carbon-Unaware (static) Baselines
 3. Mathematical Optimum Solution
 4. Simple carbon-aware approach
@@ -20,6 +20,16 @@ The results of the experiments can be found in the form of CSV files in the [res
 # Data visualisation 
 The [dataViz folder](dataViz) contains the Jupyter Notebook used to create the visualisations of the results.  
 The images that were created with the notebook can be found in the [img folder](img).
+0. General Data Visualisation
+  - Carbon Intensity Heatmap 
+  - Mean Hour in Week Carbon Intensity
+  - Mean Hour in Week Carbon Budget
+1. Carbon Budget Utilization
+2. Revenue
+3. Revenue to energy demand ratio
+4. Carbon Emissions
+99. Statistics Calculations
+  - Statistical Results that are used in "Interpretation of the Results" Section of the Thesis
 
 
 # Data 
