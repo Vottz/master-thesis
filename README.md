@@ -21,7 +21,8 @@ The results of the experiments can be found in the form of CSV files in the [res
 The [dataViz folder](dataViz) contains the Jupyter Notebook used to create the visualisations of the results.  
 The images that were created with the notebook can be found in the [img folder](img).
 0. General Data Visualisation
-  - Carbon Intensity Heatmap 
+  - Carbon Intensity Heatmap
+  - Energy Budget Heatmap
   - Mean Hour in Week Carbon Intensity
   - Mean Hour in Week Carbon Budget
 1. Carbon Budget Utilization
@@ -106,17 +107,15 @@ The [lib.py](lib.py) file contains all the functions used in multiple experiment
 Some of the experiment files itself have single functions that are only used in that specific experiment  
 
 In [lib.py](lib.py) the following functions can be found:
-- The Selectibe Optimiziation Algorithm 
+- The Selectibe Optimization Algorithm 
 - num_days_between
 - weekdayfrequency(year)
 - getConstantsFromBPMN: Extracts the parameters from the JSON file that is used to describe the application architecture
-
 - calcEnergyDemandFromAVG
 - calcQFromAVG
 - calcCarbonEmissionFromEnergyDemand
 - calcCarbonBudgetFrom_AVG_CE
 - getS_hourlyAVG
 - calcEnergyBudgetHourInWeekAVG
-- calcCarbonIntensityHourInWeekAVG
 - calcCarbonBudgetHourInWeekAVG
 - calcED_LP

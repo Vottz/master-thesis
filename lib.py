@@ -91,8 +91,16 @@ def optimizationHourly(energyBudget, user_demand, indices, userMax, energyDemand
 # Helper Functions
 
 #https://stackoverflow.com/questions/43692340/how-to-find-number-of-mondays-or-any-other-weekday-between-two-dates-in-python
-def num_days_between( start, end, week_day):
-    num_weeks, remainder = divmod( (end-start).days, 7)
+def num_days_between(start, end, week_day):
+    """
+    Calculates the number of times a weekday occurs between two dates
+
+    :param p1: start date
+    :param p2: end date
+    :param p3: day of the week (0 = Monday,...,6 = Sunday)
+    :return: number of times p3 occurs between p1 and p2
+    """ 
+    num_weeks, remainder = divmod((end-start).days, 7)
     if ( week_day - start.weekday() ) % 7 < remainder:
        return num_weeks + 1
     else:
@@ -100,7 +108,9 @@ def num_days_between( start, end, week_day):
 
 def weekdayfrequency(year):
     """
-    param: year
+    Calculates the frequency of each weekday in a given year
+
+    :param p1: year
     return: list of the frequency each weekday occurs in that year
     """
     return([num_days_between(date(year, 1, 1), date(year+1, 1, 1), i) for i in range(7)])
@@ -110,7 +120,9 @@ def weekdayfrequency(year):
 ## 1.  Get BPMN data constants
 def getConstantsFromBPMN(bpmnFile):
     """
-    param: bpmnFile
+    Extracts the constants from a given JSON file
+
+    :param p1: bpmnFile [in JSON]
     return: data, vars_ms, userMax, energyDemand, q
     """
     with open(bpmnFile) as data_file:
@@ -150,6 +162,12 @@ def getConstantsFromBPMN(bpmnFile):
 
 ### a) Energy Demand depending on user data
 def calcEnergyDemandFromAVG(clickData_hourly):
+    """
+    Calculates the Energy Demand of the average architecture for a given user request dataset
+
+    :param p1: user request Data
+    return: Energy Demand per Hour
+    """
     data, vars_ms, userMax, energyDemand, q = getConstantsFromBPMN('../flightBooking.json')
     # AVG deployment data
 
@@ -186,6 +204,13 @@ def calcEnergyDemandFromAVG(clickData_hourly):
     return(ed)
 
 def calcQFromAVG(clickData_hourly):
+    """
+    Calculates the Revenue of the average architecture for a given user request dataset
+
+    :param p1: user request Data
+    return: Energy Demand per Hour
+    """
+
     data, vars_ms, userMax, energyDemand, q = getConstantsFromBPMN('../flightBooking.json')
 
     ## AVG q per ms in Architecture
@@ -223,9 +248,11 @@ def calcQFromAVG(clickData_hourly):
 
 def calcCarbonEmissionFromEnergyDemand(ed, ci_data):
     """
-    param: 
-        energy demand per hour [kWh]
-        carbon intensity data per hour [gCO2eq per kWh]
+    Calculates the carbon emissions for a given energy demand and carbon intensity data
+
+    :param p1: energy demand per hour [kWh]
+    :param p2: carbon intensity data per hour [gCO2eq per kWh]
+
     return: carbon emissions per hour
     """
     data, vars_ms, userMax, energyDemand, q = getConstantsFromBPMN('../flightBooking.json')
@@ -241,9 +268,11 @@ def calcCarbonEmissionFromEnergyDemand(ed, ci_data):
 
 def calcCarbonBudgetFrom_AVG_CE(clickData_hourly,ci_data):
     """
-    param:
-        clickData_hourly: user request data for a given year [int]
-        ci_data: carbon intensity data for a given year [gCO2eq per kWh]
+    Calculates the annual carbon budget for a given user request dataset and carbon intensity data
+
+    :param p1: clickData_hourly: user request data for a given year [int]
+    :param p2: ci_data: carbon intensity data for a given year [gCO2eq per kWh]
+
     return: carbon budget for a given year [gCO2eq]
     """
     # ToDo: Think how to handle 2020 and 2015 user data set, because 2015 is not a leap year
@@ -253,6 +282,13 @@ def calcCarbonBudgetFrom_AVG_CE(clickData_hourly,ci_data):
 
 
 def calcCarbonBudget_hourly(clickData_hourly):
+    """
+    Calculates the mean carbon budget per hour in week for a given user request dataset
+
+    :param p1: clickData_hourly: user request data for a given year [int]
+
+    return: carbon budget for a given year [gCO2eq]
+    """
     # 2020 had 8784 hours (Leap year)
     # ToDo: Think how to handle 2020 and 2015 user data set, because 2015 is not a leap year
     cb = calcCarbonBudgetFrom_AVG_CE(clickData_hourly)
@@ -262,9 +298,11 @@ def calcCarbonBudget_hourly(clickData_hourly):
 ### b) Weekly Time Series Budget Calculation
 def getS_hourlyAVG(clickData_hourly, year):
     """
-    param:
-        clickData_hourly: user request data for a given year
-        year: year of calculation
+    Calculates the hourly average of user request in hour in week for a given year with its user-request data
+
+    :param p1: clickData_hourly: user request data for a given year
+    :param p2: year: year of calculation
+
     return: hourly average of user request in hour in week for a given year
     """
     weekday_frequency = weekdayfrequency(year)
@@ -281,24 +319,17 @@ def getS_hourlyAVG(clickData_hourly, year):
 
 def calcCarbonBudgetHourInWeekAVG(year, clickData_hourly, ci_data):
     '''
-    param: 
-        year of calculation, int
-        user request data for that year, [int] size is 8760 or 8784 in leap years
-        CI data for that year ,[int] size is 8760 or 8784 in leap years
-    return: Calculates the mean carbon budget per hour in a week for a given year
+    Calculates the mean carbon budget per hour in a week for a given year
+
+    :param p1:    year of calculation, int
+    :param p2:    user request data for that year, [int] size is 8760 or 8784 in leap years
+    :param p3:    CI data for that year ,[int] size is 8760 or 8784 in leap years
+
+    return: The mean carbon budget per hour in a week for the given year
     '''
-    #df = pd.read_csv(r'/home/k/projects/CA_microservices/data/DE_2021.csv')
-    #ci_data_2021_hourly = df['carbon_intensity_avg']
-    #df = pd.read_csv(r'/home/k/projects/CA_microservices/data_scraping/projectcount_wikiDE-de.csv')
-    #clickData_hourly = df["De"]
-    
     s_hourlyAVG = getS_hourlyAVG(clickData_hourly, year)
     weekday_frequency = weekdayfrequency(year)
-    s = weekday_frequency.index(53)*24
-
-    #energyBudget_annually_2021 = 18018969861.040535 * 0.92 # ToDo recalulate and add to lib.py
-    #eb_perUser = energyBudget_annually_2021 / user_total_annually
-    #eb_perHour = [s_hourlyAVG[i] * eb_perUser for i in range(len(s_hourlyAVG))]
+    # s = weekday_frequency.index(53)*24
     
     user_total_annually = sum(clickData_hourly)
     carbonEmission = calcCarbonEmissionFromEnergyDemand(calcEnergyDemandFromAVG(clickData_hourly),ci_data)
@@ -319,6 +350,16 @@ def calcCarbonBudgetHourInWeekAVG(year, clickData_hourly, ci_data):
 
 
 def calcED_LP(userMax, energyDemand, q, clickData):
+    '''
+    Calculates the energy demand for the low power architecture
+
+    :param p1: userMax
+    :param p2: energyDemand
+    :param p3: q
+    :param p4: clickData
+
+    return: qValue,clickData,ed
+    '''
     ed = 0
     for j in range(len(q)):
         if userMax[j][0] > 0:
@@ -326,104 +367,3 @@ def calcED_LP(userMax, energyDemand, q, clickData):
         clickData = clickData * q[j][0]
     qValue = math.prod([q[i][0] for i in range(len(q))])
     return(qValue,clickData,ed)
-
-
-## 3. Carbon Intensity Data
-
-def calcCarbonIntensityHourInWeekAVG():
-    # ToDo check if all correct
-    df = pd.read_csv(r'../data/DE_2020.csv')
-    ci_data_2020_hourly = df['carbon_intensity_avg']
-    weekday_frequency2015 = [52,52,52,53,52,52,52]
-
-    ciHourlInWeek_avg = [0] * 168
-    ## We start Wednesday (01.01.2020) and end Thursday (31.12.2020) (Leap year)
-    for i in range(5):
-        for j in range(24):
-            ciHourlInWeek_avg[48+(24*i)+j] += ci_data_2020_hourly[i*24+j]
-            ciHourlInWeek_avg[(24*i)+j] += ci_data_2020_hourly[8664+i*24+j]
-    for i in range(168):
-        for j in range(51):
-            ciHourlInWeek_avg[i] += ci_data_2020_hourly[120+(168*j)+i]
-        ciHourlInWeek_avg[i] = ciHourlInWeek_avg[i] / weekday_frequency2015[i%7]
-    return(ciHourlInWeek_avg)
-
-
-#########
-
-# MISC
-
-# Calculate hourly Carbon Budget per User
-## First calculating the hourly average in the week t \in {0,167}
-
-def getYearlyBudget():
-    data, vars_ms, userMax, energyDemand, q = getConstantsFromBPMN('../flightBooking.json')
-    # AVG deployment data
-    ## AVG q per ms in Architecture
-    avgQ = [mean(q[i]) for i in range(len(q))]
-
-    ## AVG user-max per ms in Architecture
-    avg_userMax = [mean(userMax[i]) for i in range(len(q))]
-
-    ## AVG Users per Microservice
-    df = pd.read_csv(r'/home/k/projects/CA_microservices/data_scraping/projectcount_wikiDE-de.csv')
-    clickData2015_hourly = df["De"]
-
-    user_avg = [[] for x in range(8760)]
-    for i in range(8760):
-        user_avg[i].append(clickData2015_hourly[i])
-        user_avg[i].append(clickData2015_hourly[i] * avgQ[0])
-        for j in range(1,len(avgQ)):
-            user_avg[i].append(user_avg[i][j] * avgQ[j])
-
-    ## and number of machines needed per microservice (Scaling Factor)
-    avg_numInstances = [[] for x in range(8760)]
-    for i in range(8760):
-        for j in range(len(userMax)):
-            temp = user_avg[i][j] / avg_userMax[j]
-            if math.isnan(temp):
-                avg_numInstances[i].append(0)
-                print(temp,i)
-            else:
-                avg_numInstances[i].append(math.ceil(user_avg[i][j] / avg_userMax[j]))
-    ## AVG ED per ms in Architecture
-    avgEnergyDemand = [mean(energyDemand[i]) for i in range(len(energyDemand))]
-
-    ## SF of AVG deployment
-    ed2015 = [[] for x in range(8760)] # in kwH per ms per hour
-    for i in range (0, 8760):
-        ed2015[i] = [avgEnergyDemand[j] * avg_numInstances[i][j] for j in range(len(avgEnergyDemand))] # Check if right?
-    # Read Carbon Intensity Data and create energy budget for different time periods
-
-    # Calculate carbon emissions in 2020
-    df = pd.read_csv(r'/home/k/projects/CA_microservices/data/DE_2020.csv') # in gCO2eq per kWh
-
-    # Emissions 2020 per hour
-    emissions2020perHour = []
-    for i in range (0, 8760):
-        emissions2020perHour.append(sum(ed2015[i][j] * df['carbon_intensity_avg'][i] for j in range(len(energyDemand))))
-    print("Yearly Carbon Emissions:" + str(sum(emissions2020perHour)) + "gCO2eq")
-    return(sum(emissions2020perHour))
-
-def getTotalUsers():
-    df = pd.read_csv(r'/home/k/projects/CA_microservices/data_scraping/projectcount_wikiDE-de.csv')
-    clickData2015_hourly = df["De"]
-    return(sum(clickData2015_hourly))
-
-def getHourlyEnergyBudgetPerUser():
-    return(getYearlyBudget() / getTotalUsers())
-
-
-def getEB_hourlyAVG():
-    # EB_total / #User_total = Budget per User
-    # /cdot AVGUser_t ; t \in {0,167}
-    s_hourlyAVG = getS_hourlyAVG()
-    df = pd.read_csv(r'/home/k/projects/CA_microservices/data_scraping/projectcount_wikiDE-de.csv')
-    clickData_hourly = df["De"]
-
-    energyBudget_annually_2021 = (5835208188046.042 * 0.92)
-    user_total_annually = sum(clickData_hourly)
-    eb_perUser = energyBudget_annually_2021 / user_total_annually
-    eb_perHour = [s_hourlyAVG[i] * eb_perUser for i in range(len(s_hourlyAVG))]
-
-    return(eb_perHour)
