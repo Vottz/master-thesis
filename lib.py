@@ -1,24 +1,22 @@
-import requests
+
 import json
 from datetime import *
-import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-import csv
-import pandas as pd
-
 import gurobi as gb
 from gurobipy import GRB
-
-
 import math
 from statistics import mean 
 
 import subprocess
+import requests
+import sys
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+import csv
+import pandas as pd 
 
-import sys 
+
 import os
-
 from lib import *
 path = os.getcwd()
 
@@ -33,6 +31,7 @@ def optimizationHourly(energyBudget, user_demand, indices, userMax, energyDemand
     :param p4: dataset of maximum users per configuration option
     :param p5: dataset of energy demand per configuration option
     :param p6: dataset of throughput per configuration option
+    
     :return: energy demand for optimal configuration
     """ 
     shape = [(ms,x) for ms in range(len(indices)) for x in range(len(indices[ms]))]
@@ -41,7 +40,7 @@ def optimizationHourly(energyBudget, user_demand, indices, userMax, energyDemand
 
     # Variables
     b = m.addVars(shape, vtype=GRB.BINARY, name="b")
-    u = m.addVars(len(indices)+1, lb=0.0, vtype=GRB.CONTINUOUS, name="u") # ub=20.0 ?
+    u = m.addVars(len(indices)+1, lb=0.0, vtype=GRB.CONTINUOUS, name="u")
 
     # Scaling Factor. Indicates how many instances are needed to serve the user demand. For each microservice
     sf = m.addVars(shape, lb=0, vtype=GRB.INTEGER, name="sf")
@@ -145,16 +144,14 @@ def getConstantsFromBPMN(bpmnFile):
                 else:
                     vars_ms[i].append(x)
                     if x[1]["user-scaling"] is None:
-                        userMax[i].append(10000000000) # ToDo: Fix this workaround. set to 10000000000?
+                        userMax[i].append(10000000000)
                     else:
                         userMax[i].append(x[1]["user-scaling"])
                     energyDemand[i].append(x[1]["energy-demand"])
                     q[i].append(x[1]["q"])
-                    #ms_j_q = j["q"]
                     j += 1
             i += 1
-            #ms = m.addVars(vars_ms, name="ms") #Has to be splitted into multiple variables: 'energy-demand', 'user-scaling', 'q'
-            # multidict(vars_ms)
+
     return(data, vars_ms, userMax, energyDemand, q)
 
 

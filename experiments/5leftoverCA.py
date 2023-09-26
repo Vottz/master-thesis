@@ -43,9 +43,6 @@ ci_data_2021 = df['carbon_intensity_avg']
 df = pd.read_csv(r'../data/projectcount_wikiDE_2014.csv')
 clickData_hourly_2014 = df["de"]
 
-df = pd.read_csv(r'../data/DE_2021.csv')
-ci_data_2021_hourly = df['carbon_intensity_avg']
-
 
 weekday_frequency = weekdayfrequency(2021)
 s_2021 = weekday_frequency.index(53)*24
@@ -65,7 +62,7 @@ for t in range(0,len(clickData_hourly)):
         leftOver = 0
     eb = carbonBudget[index]/ci_data_2021[t]
     qValue,userThrougput,ed = optimizationHourly(eb, clickData_hourly[t], indices, userMax, energyDemand, q)
-    ce = ed * ci_data_2021_hourly[t]
+    ce = ed * ci_data_2021[t]
     row = [qValue,userThrougput,ed,eb,clickData_hourly[t],ce]
     f = open('../results/5_leftover_optimization_result.csv', 'a')
     writer = csv.writer(f)

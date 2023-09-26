@@ -8,10 +8,11 @@ There are in total 8 different experiments that were conducted:
 2. Carbon-Unaware (static) Baselines
 3. Mathematical Optimum Solution
 4. Simple carbon-aware approach
-5. Randomized Energy Budget (Validation Approach)
+5. Randomized Energy Budget with up to 40% exceeding budget
 6. Uniform Recycle Budget 
 7. Weighted Recycle Budget
 8. Hourly Recycle Budget
+9. Randomized Energy Budget with random budget between 80% and 120% (Validation Approach)
 
 
 The results of the experiments can be found in the form of CSV files in the [results folder](results).
@@ -118,4 +119,6 @@ In [lib.py](lib.py) the following functions can be found:
 - getS_hourlyAVG
 - calcEnergyBudgetHourInWeekAVG
 - calcCarbonBudgetHourInWeekAVG
-- calcED_LP
+- calcED_LP  
+
+Each of these functions and its input parameters and output are explained as a comment at the start of their definition in [lib.py](lib.py).
