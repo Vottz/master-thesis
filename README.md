@@ -6,12 +6,12 @@
 There are in total 8 different experiments that were conducted:
 1. Selective Optimization
 2. Carbon-Unaware (static) Baselines
-3. Mathematical Optimum Solution
-4. Simple carbon-aware approach
-5. Randomized Energy Budget with up to 40% exceeding budget
-6. Uniform Recycle Budget 
+3. Simple carbon-aware approach
+4. Randomized Energy Budget with up to 40% exceeding budget
+5. Uniform Recycle Budget
+6. Hourly Recycle Budget 
 7. Weighted Recycle Budget
-8. Hourly Recycle Budget
+8. Mathematical Optimum Solution (Note this Approach is not part of the Thesis)
 9. Randomized Energy Budget with random budget between 80% and 120% (Validation Approach)
 
 

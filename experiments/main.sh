@@ -6,3 +6,4 @@ python3 4randomEB.py
 python3 5leftoverCA.py
 python3 6leftoverCA_addToEB.py
 python3 7leftoverWeightedBudget.py
+python3 9randomEB_08_12.py
