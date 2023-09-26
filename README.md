@@ -97,7 +97,7 @@ python3 <x-experiment.py>
 DISCLAIMER: The experiments can take a long time to run, depending on the parameters that are used.
 or by executing the shell script [main.sh](results/main.sh) in the results folder:
 ```bash
-cd results
+cd experiments
 chmod +x main.sh
 ./main.sh
 ```
